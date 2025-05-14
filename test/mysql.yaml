@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mysql-deploy
+  name: mysql-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mysql-deploy
+    spec:
+      containers:
+      - image: mysql
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "Qq123456"
+        ports:
+        - containerPort: 3306
+          name: mysql

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mssql-alwayson
+spec:
+  serviceName: mssql-alwayson
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mssql-alwayson
+  template:
+    metadata:
+      labels:
+        app: mssql-alwayson
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "E4l1a3d2@"
+        volumeMounts:
+          - name: mssql-volume
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: mssql-volume
+          persistentVolumeClaim:
+            claimName: mssql-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-svc
+spec:
+  selector:
+    app: mssql-alwayson
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+      nodePort: 30300
+  type: NodePort

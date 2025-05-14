@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deploy
+  labels:
+    app: webapp-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp-deploy
+  template:
+    metadata:
+      labels:
+        app: webapp-deploy
+    spec:
+      containers:
+        - name: webapp
+          image: webapp:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CONNECTION_STRING
+              value: "Server=mssql-service;Database=List;User Id=sa;Password=E4l1a3d2@;TrustServerCertificate=True;"
+

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wenapp-route
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: eladweb.etech.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: webapp-deploy
+            port:
+              number: 8080
