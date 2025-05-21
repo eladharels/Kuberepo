@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wenapp-route
+  namespace: helmspace
 spec:
   ingressClassName: nginx
   rules:
@@ -12,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: webapp-deploy
+            name: myhelmapp
             port:
-              number: 8080
+              number: 80
