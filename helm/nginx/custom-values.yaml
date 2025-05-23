@@ -1,0 +1,10 @@
+#change tag to latest
+image:
+  tag: latest
+
+#change replica count
+replicaCount: 2
+
+#changeservicetonodeport
+service:
+  type: NodePort
